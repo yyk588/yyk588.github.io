@@ -326,6 +326,21 @@
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
 </noscript>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const emailLink = document.querySelector('a[href^="mailto:"]');
+  if (!emailLink) return;
 
+  const email = emailLink.href.replace('mailto:', '');
+  emailLink.addEventListener('click', function (e) {
+    e.preventDefault();
+    navigator.clipboard.writeText(email).then(() => {
+      alert('邮箱已复制：' + email);
+    }).catch(() => {
+      prompt('请手动复制邮箱', email);
+    });
+  });
+});
+</script>
 </body>
 </html>
